@@ -9,7 +9,10 @@ public class TimeCounter : MonoBehaviour
     float elapsedTime;
     bool isPaused;
 
-    float timeInstantiate;
+    public int freqInSeconds;
+    float nextSpawnTime;
+
+    public GameObject sphereSpwan;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,8 @@ public class TimeCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameObject clon;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isPaused = !isPaused;
@@ -30,9 +35,11 @@ public class TimeCounter : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime % timeInstantiate)
+            if (nextSpawnTime < Time.time)
             {
-
+                clon = Instantiate(sphereSpwan);
+                Destroy(clon, 2);
+                nextSpawnTime += freqInSeconds;
             }
         }
 
